@@ -1,50 +1,34 @@
 import game as g
+from random import shuffle
 import time
 
-def copy(grid):
-    n = len(grid)
-    return [[grid[row][col] for col in range(n)] for row in range(n)]
-
-def hasMoved(gridOld, gridNew):
-    n = len(gridOld)
-    moved = False
-    for row in range(n):
-        if moved:
-            break
-
-        for col in range(n):
-            if gridOld[row][col] != gridNew[row][col]:
-                moved = True
-                break
-    return moved
-
-def move(grid):
+def crazyBot(game):
     moveList = ["up", "left", "right", "down"]
-    gridNew = copy(grid)
+    shuffle(moveList)
     for direction in moveList:
-        gridOld = copy(gridNew)
-        gridNew = g.move(gridOld, direction)
-        if hasMoved(gridOld, gridNew):
+        if game.turn(direction):
             break
-    return gridNew
 
+def simpleBot(game):
+    moveList = ["up", "left", "right", "down"]
+    for direction in moveList:
+        if game.turn(direction):
+            break
 
 def main():
 
     try:
-        grid = g.createEmpty(4)
-        grid = g.addTwo(grid)
-        grid = g.addTwo(grid)
-        moveCnt = 0
-        while grid != False:
-            time.sleep(.2)
-            g.prettyPrint(grid)                
-            grid = move(grid)
-            moveCnt += 1
-            grid = g.addTwo(grid)
-
-        #print "Score:", g.HIGHEST, "Moves:", moveCnt
-        #print g.HIGHEST, moveCnt
+        print "max;score;movecnt;grid"
+        for x in range(10000):
+            game = g.Game()
+            moveCnt = 0
+            while not game.lost:
+                #time.sleep(.1)
+                crazyBot(game)
+                #game.prettyPrint()                
+                moveCnt += 1
+            #time.sleep(.1)
+            print game.max, ";", game.score, ";", moveCnt, ";", game.grid
     except KeyboardInterrupt:
         pass
 
