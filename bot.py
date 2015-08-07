@@ -23,12 +23,12 @@ def main():
             game = g.Game()
             moveCnt = 0
             while not game.lost:
-                #time.sleep(.1)
-                crazyBot(game)
-                #game.prettyPrint()                
+                time.sleep(.8)
+                simpleBot(game)
+                game.prettyPrint()
                 moveCnt += 1
             #time.sleep(.1)
-            print game.max, ";", game.score, ";", moveCnt, ";", game.grid
+            #print game.max, ";", game.score, ";", moveCnt, ";", game.grid
     except KeyboardInterrupt:
         pass
 

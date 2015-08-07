@@ -1,3 +1,5 @@
+# Simple plot of output of bot.py
+
 library(ggplot2)
 library(reshape)
 setwd("/Users/topfpflanze/projectsOther/2048")
